@@ -2,6 +2,8 @@
 
 A rubygem for enabling Gemfiles to specify gem locations from environment variables.
 
+[![Build Status](https://travis-ci.org/mosop/envandle.svg?branch=master)](https://travis-ci.org/mosop/envandle)
+
 ## Installation
 
 ```sh
