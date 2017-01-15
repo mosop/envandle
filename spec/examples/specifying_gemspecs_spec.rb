@@ -7,11 +7,14 @@ module EnvandleExampleSpecSpecifyingGemspecs
     end
 
     let(:gemfile) do
-      Envandle::Gemfile.new(File.join(dir, "current", "Gemfile"), actual)
+      Envandle::Elements::Gemfile.new(File.join(dir, "current", "Gemfile"), test_binding, working_dir)
     end
 
     def draw
-      bundle.gemspec
+      gemfile.draw do
+        source "https://rubygems.org"
+        gemspec
+      end
     end
 
     context "with env", envandle: true do
@@ -20,11 +23,12 @@ module EnvandleExampleSpecSpecifyingGemspecs
         b_dir = File.join(dir, "b")
         ENV["ENVANDLE_GEM_PATH"] = "a:#{a_dir};b:#{b_dir}"
         draw
-        expect(actual.gem_argsets).to eq [
-          ["test", {path: "."}],
-          ["a", {path: a_dir}],
-          ["b", {path: b_dir}],
-          ["c", "~> 1.0"]
+        expect(actual).to eq [
+          [:source, "https://rubygems.org"],
+          [:gem, "test", {path: "."}],
+          [:gem, "a", {path: a_dir}],
+          [:gem, "b", {path: b_dir}],
+          [:gem, "c", "~> 1.0"]
         ]
       end
     end
@@ -32,11 +36,12 @@ module EnvandleExampleSpecSpecifyingGemspecs
     context "without env", envandle: true do
       it do
         draw
-        expect(actual.gem_argsets).to eq [
-          ["test", {path: "."}],
-          ["a", "~> 1.0"],
-          ["b", "~> 1.0"],
-          ["c", "~> 1.0"]
+        expect(actual).to eq [
+          [:source, "https://rubygems.org"],
+          [:gem, "test", {path: "."}],
+          [:gem, "a", "~> 1.0"],
+          [:gem, "b", "~> 1.0"],
+          [:gem, "c", "~> 1.0"]
         ]
       end
     end

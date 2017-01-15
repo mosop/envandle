@@ -3,11 +3,14 @@ require_relative "../spec_helper"
 module EnvandleExampleSpecSettingPaths
   RSpec.describe name do
     let(:gemfile) do
-      Envandle::Gemfile.new(nil, actual)
+      Envandle::Elements::Gemfile.new(nil, test_binding, working_dir)
     end
 
     def draw
-      bundle.gem "mygem", "~> 1.0"
+      gemfile.draw do
+        source "https://rubygems.org"
+        gem "mygem", "~> 1.0"
+      end
     end
 
     context "with env", envandle: true do
@@ -15,8 +18,9 @@ module EnvandleExampleSpecSettingPaths
         dir = File.join(__dir__, "setting_paths")
         ENV["ENVANDLE_GEM_PATH"] = "mygem:#{dir}"
         draw
-        expect(actual.gem_argsets).to eq [
-          ["mygem", {path: dir}]
+        expect(actual).to eq [
+          [:source, "https://rubygems.org"],
+          [:gem, "mygem", {path: dir}]
         ]
       end
     end
@@ -24,8 +28,9 @@ module EnvandleExampleSpecSettingPaths
     context "without env", envandle: true do
       it do
         draw
-        expect(actual.gem_argsets).to eq [
-          ["mygem", "~> 1.0"]
+        expect(actual).to eq [
+          [:source, "https://rubygems.org"],
+          [:gem, "mygem", "~> 1.0"]
         ]
       end
     end

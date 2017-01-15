@@ -12,14 +12,14 @@ $ gem install envandle
 
 ## Usage
 
-Write a Gemfile.
+Enclose your Gemfile's code with an envandle block.
 
 ```ruby
 require "envandle"
 
-source "https://rubygems.org"
+binding.envandle do
+  source "https://rubygems.org"
 
-binding.envandle do |bundle|
   bundle.gem "mygem", "~> 1.0"
 end
 ```
@@ -47,8 +47,10 @@ For example,
 ```ruby
 ENV["ENVANDLE_GEM_PATH"] = "mygem:/path/to/mygem"
 
-binding.envandle do |bundle|
-  bundle.gem "mygem", "~> 1.0"
+binding.envandle do
+  source "https://rubygems.org"
+
+  gem "mygem", "~> 1.0"
 end
 ```
 
@@ -63,8 +65,10 @@ If the variable is not set,
 ```ruby
 ENV["ENVANDLE_GEM_PATH"] = ""
 
-binding.envandle do |bundle|
-  bundle.gem "mygem", "~> 1.0"
+binding.envandle do
+  source "https://rubygems.org"
+
+  gem "mygem", "~> 1.0"
 end
 ```
 
@@ -83,8 +87,10 @@ For example,
 ```ruby
 ENV["ENVANDLE_GEM_GIT_BRANCH"] = "mygem:https://github.com/mosop/mygem.git#edge"
 
-binding.envandle do |bundle|
-  bundle.gem "mygem", "~> 1.0"
+envandle do
+  source "https://rubygems.org"
+
+  gem "mygem", "~> 1.0"
 end
 ```
 
@@ -99,8 +105,10 @@ If the variable is not set,
 ```ruby
 ENV["ENVANDLE_GEM_GIT_BRANCH"] = ""
 
-binding.envandle do |bundle|
-  bundle.gem "mygem", "~> 1.0"
+binding.envandle do
+  source "https://rubygems.org"
+
+  gem "mygem", "~> 1.0"
 end
 ```
 
@@ -119,8 +127,10 @@ For example, if your gem's name is "mygem", the gemspec refers the a, b and c ge
 ```ruby
 ENV["ENVANDLE_GEM_PATH"] = "a:/path/to/a;b:/path/to/b"
 
-binding.envandle do |bundle|
-  bundle.gemspec
+binding.envandle do
+  source "https://rubygems.org"
+
+  gemspec
 end
 ```
 
@@ -140,8 +150,10 @@ For example, if a Gemfile refers the gem a that depends on the gem b, Envandle a
 ```ruby
 ENV["ENVANDLE_GEM_PATH"] = "a:/path/to/a;b:/path/to/b"
 
-binding.envandle do |bundle|
-  bundle.gem "a", "~> 1.0"
+binding.envandle do
+  source "https://rubygems.org"
+
+  gem "a", "~> 1.0"
 end
 ```
 

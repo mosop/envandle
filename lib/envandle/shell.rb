@@ -1,6 +1,8 @@
 module Envandle
   def self.sh(cmd)
-    system cmd, out: "/dev/null", err: "/dev/null"
-    raise "Command error: #{cmd}" unless $?.success?
+    # output, status = Open3.capture2(cmd)
+    output, error, status = Open3.capture3(cmd)
+    raise "Command error: #{cmd}" unless status.success?
+    output
   end
 end

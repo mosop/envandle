@@ -5,7 +5,7 @@ module Envandle
         attr_reader :group, :name
 
         def key
-          @key ||= ReferenceCache.key(group, name)
+          @key ||= ::Envandle.reference_key(group, name)
         end
       end
     end

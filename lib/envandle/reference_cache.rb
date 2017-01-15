@@ -1,14 +1,11 @@
 module Envandle
   class ReferenceCache
-    def self.key(group, name)
-      if group
-        "#{name}@#{group}"
-      else
-        name
-      end
+    def initialize(context)
+      @context = context
     end
 
-    def find(key, name)
+    def find(group, name)
+      key = Envandle.reference_key(group, name)
       paths[key] ||
       git_branches[key] ||
       paths[name] ||
@@ -49,7 +46,7 @@ module Envandle
       name = a[0].to_s.strip
       path = a[1..-1].join(":").to_s.strip
       raise "No gem path (#{env}): #{ENV[env]}" if path.empty?
-      klass.new(*parse_group_and_name(env, name), path)
+      klass.new(@context, *parse_group_and_name(env, name), path)
     end
 
     def parse_git(klass, env, v)
@@ -63,7 +60,26 @@ module Envandle
       ref = url_and_ref[1].to_s.strip
       raise "No gem git url (#{env}): #{ENV[env]}" if url.empty?
       raise "No gem git ref/branch/tag (#{env}): #{ENV[env]}" if ref.empty?
-      klass.new(*parse_group_and_name(env, name), url, ref)
+      klass.new(@context, *parse_group_and_name(env, name), url, ref)
+    end
+
+    def extract_executable_argsets(base, group, name, argsets, found = {})
+      key = Envandle.reference_key(group, name)
+      return true if found.key?(key)
+      found[key] = true
+      if ref = find(group, name)
+        ref.spec.runtime_dependencies.each do |i|
+          if ref2 = find(nil, i.name)
+            extract_executable_argsets base, nil, i.name, argsets, found
+          end
+        end
+        args = base.dup
+        args.args[0] = name
+        argsets << ref.to_executable_argset(args)
+        true
+      else
+        false
+      end
     end
   end
 end
