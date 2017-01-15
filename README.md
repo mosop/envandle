@@ -20,7 +20,7 @@ require "envandle"
 binding.envandle do
   source "https://rubygems.org"
 
-  bundle.gem "mygem", "~> 1.0"
+  gem "mygem", "~> 1.0"
 end
 ```
 
