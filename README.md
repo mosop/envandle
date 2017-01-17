@@ -168,6 +168,21 @@ gem "b", path: "/path/to/b"
 
 The install_envandle command just installs Envandle itself with the `bundle install` command. It's useful for successfully loading Envandle in your Gemfile with the Bundler's --path option.
 
+```
+$ install_envandle -h
+install_envandle [OPTIONS]
+
+Installs Envandle using Bundler.
+
+Options:
+  --envandle-source      gem source (default: https://rubygems.org)
+  --envandle-bundle-bin  command path (default: bundle)
+
+Additionally, you can specify all of the bundle-install's options.
+```
+
+### Usage Example
+
 ```sh
 $ gem install bundler
 $ gem install envandle
