@@ -163,3 +163,14 @@ is evaluated as:
 gem "a", path: "/path/to/a"
 gem "b", path: "/path/to/b"
 ```
+
+## install_envandle
+
+The install_envandle command just installs Envandle itself with the `bundle install` command. It's useful for successfully loading Envandle in your Gemfile with the Bundler's --path option.
+
+```sh
+$ gem install bundler
+$ gem install envandle
+$ install_envandle --path vendor/bundle
+$ bundle install
+```
