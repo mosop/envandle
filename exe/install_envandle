@@ -2,7 +2,7 @@
 
 $:.unshift File.expand_path("../../lib", __FILE__)
 require "envandle"
-require "tmpdir"
+require "tempfile"
 
 gem_source = "https://rubygems.org"
 bundle_bin = "bundle"
@@ -39,12 +39,12 @@ end
 abort "Invalid option: --envandle-source" unless gem_source
 abort "Invalid opiton: --bundle-bin" unless bundle_bin
 
-Dir.mktmpdir do |dir|
-  gemfile = File.join(dir, "Gemfile")
-  File.write(gemfile, <<-EOS
+gemfile = Tempfile.new("install_envandle-Gemfile-", Dir.pwd)
+gemfile << <<-EOS
 source #{gem_source.inspect}
 gem "envandle", "#{Envandle::VERSION}"
 EOS
-  )
-  exit system(bundle_bin, "install", "--gemfile", gemfile, *args) ? 0 : 1
-end
+gemfile.close
+code = system(bundle_bin, "install", "--gemfile", gemfile.path, *args) ? 0 : 1
+File.delete "#{gemfile.path}.lock"
+exit code
