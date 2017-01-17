@@ -2,9 +2,8 @@ module Envandle
   class PathReference
     extend AsReference
 
-    def initialize(context, group, name, path)
+    def initialize(context, name, path)
       @context = context
-      @group = group
       @name = name
       @path = path
     end
@@ -16,6 +15,7 @@ module Envandle
     def to_executable_argset(base)
       args = base.dup
       args.clear_reference
+      args.args[0] = @name
       args.options[:path] = @path
       Argset.new(:gem, *args.args_and_options)
     end

@@ -33,6 +33,9 @@ module Envandle
         children.each do |child|
           child.exec receiver
         end
+        references.left.each do |k, v|
+          v.to_executable_argset(Argset.new(nil)).send_to receiver
+        end
       end
 
       def dir
@@ -49,6 +52,10 @@ module Envandle
 
       def references
         @references ||= ReferenceCache.new(self)
+      end
+
+      def gem_keys
+        @gem_keys ||= {}
       end
 
       def gemspecs

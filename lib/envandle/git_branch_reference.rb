@@ -2,9 +2,8 @@ module Envandle
   class GitBranchReference
     extend AsGitReference
 
-    def initialize(context, group, name, url, ref)
+    def initialize(context, name, url, ref)
       @context = context
-      @group = group
       @name = name
       @url = url
       @ref = ref
@@ -34,6 +33,7 @@ module Envandle
     def to_executable_argset(base)
       args = base.dup
       args.clear_reference
+      args.args[0] = @name
       args.options[:git] = @url
       args.options[:branch] = @ref
       Argset.new(:gem, *args.args_and_options)
