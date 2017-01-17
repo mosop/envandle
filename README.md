@@ -164,13 +164,13 @@ gem "a", path: "/path/to/a"
 gem "b", path: "/path/to/b"
 ```
 
-## install_envandle
+## install-envandle
 
-The install_envandle command just installs Envandle itself with the `bundle install` command. It's useful for successfully loading Envandle in your Gemfile with the Bundler's --path option.
+The install-envandle command just installs Envandle itself with the `bundle install` command. It's useful for successfully loading Envandle in your Gemfile with the Bundler's --path option.
 
 ```
-$ install_envandle -h
-install_envandle [OPTIONS]
+$ install-envandle -h
+install-envandle [OPTIONS]
 
 Installs Envandle using Bundler.
 
@@ -186,6 +186,6 @@ Additionally, you can specify all of the bundle-install's options.
 ```sh
 $ gem install bundler
 $ gem install envandle
-$ install_envandle --path vendor/bundle
+$ install-envandle --path vendor/bundle
 $ bundle install
 ```

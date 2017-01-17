@@ -20,7 +20,7 @@ while arg = argv.shift
     bundle_bin = argv.shift
   when "-h", "--help"
     print <<-EOS
-install_envandle [OPTIONS]
+install-envandle [OPTIONS]
 
 Installs Envandle using Bundler.
 
