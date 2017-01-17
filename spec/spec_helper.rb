@@ -13,7 +13,7 @@ module Envandle
         ENV["ENVANDLE_GEM_GIT_BRANCH"] = ""
         tmpdir = File.expand_path("../tmp", __dir__)
         FileUtils.mkdir_p tmpdir
-        @__working_dir = Dir.mktmpdir(nil, tmpdir)
+        @__working_dir = Envandle.tmpdir(nil, tmpdir)
       end
 
       after(:context) do

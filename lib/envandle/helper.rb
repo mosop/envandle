@@ -19,4 +19,15 @@ module Envandle
       name
     end
   end
+
+  def self.sh(cmd)
+    output, error, status = Open3.capture3(cmd)
+    raise "Command error: #{cmd}" unless status.success?
+    output
+  end
+
+  def self.tmpdir(*args, &block)
+    require "tmpdir"
+    Dir.mktmpdir *args, &block
+  end
 end

@@ -47,7 +47,7 @@ module Envandle
     class Reserved
       def initialize(cache_path)
         @cache_path = cache_path
-        @path = Dir.mktmpdir(nil, cache_path)
+        @path = Envandle.tmpdir(nil, cache_path)
       end
 
       attr_reader :path

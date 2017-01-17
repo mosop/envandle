@@ -13,16 +13,16 @@ module Envandle
     def spec
       @spec ||= begin
         cache = @context.gemfile.gemspecs
-        shas = Envandle.git_init(nil, @url) do |dir|
-          Envandle.git_ls_remote_sha(dir, "refs/heads/#{@ref}")
+        shas = Envandle::GitUtil.init(nil, @url) do |dir|
+          Envandle::GitUtil.ls_remote_sha(dir, "refs/heads/#{@ref}")
         end
         sha = shas[0]
         cache_url = "#{@url}##{sha}"
         raise "Can't get a git commit. (url: #{@url}, branch: #{@ref})" unless sha
         dir = cache.find(cache_url) || begin
           reserve = cache.reserve
-          Envandle.git_init reserve.path, @url
-          sha = Envandle.git_pull(reserve.path, @ref, "master")
+          Envandle::GitUtil.init reserve.path, @url
+          sha = Envandle::GitUtil.pull(reserve.path, @ref, "master")
           reserve.url = cache_url
           reserve.save
           reserve.path
