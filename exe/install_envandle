@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.expand_path("../../lib", __FILE__)
+require "envandle"
+require "tmpdir"
+
+gem_source = "https://rubygems.org"
+bundle_bin = "bundle"
+
+args = []
+argv = ARGV.dup
+while arg = argv.shift
+  if arg.start_with?("--gemfile")
+    abort "--gemfile option not allowed."
+  end
+  case arg
+  when "--envandle-source"
+    gem_source = argv.shift
+  when "--envandle-bundle-bin"
+    bundle_bin = argv.shift
+  when "-h", "--help"
+    print <<-EOS
+install_envandle [OPTIONS]
+
+Installs Envandle using Bundler.
+
+Options:
+  --envandle-source      gem source (default: https://rubygems.org)
+  --envandle-bundle-bin  command path (default: bundle)
+
+Additionally, you can specify all of the bundle-install's options.
+EOS
+    exit
+  else
+    args << arg
+  end
+end
+
+abort "Invalid option: --envandle-source" unless gem_source
+abort "Invalid opiton: --bundle-bin" unless bundle_bin
+
+Dir.mktmpdir do |dir|
+  gemfile = File.join(dir, "Gemfile")
+  File.write(gemfile, <<-EOS
+source #{gem_source.inspect}
+gem "envandle", "#{Envandle::VERSION}"
+EOS
+  )
+  exit system(bundle_bin, "install", "--gemfile", gemfile, *args) ? 0 : 1
+end
