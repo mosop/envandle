@@ -5,6 +5,7 @@ autoload :YAML, "yaml" unless Object::const_defined?(:YAML) && !Object::autoload
 require "envandle/version"
 require "envandle/exceptions"
 require "envandle/helper"
+require "envandle/binding"
 
 module Envandle
   autoload :Argset, "envandle/argset"
@@ -12,7 +13,6 @@ module Envandle
   autoload :AsDsl, "envandle/as_dsl"
   autoload :AsGitReference, "envandle/as_git_reference"
   autoload :AsReference, "envandle/as_reference"
-  autoload :Binding, "envandle/binding"
   autoload :Element, "envandle/element"
   autoload :Elements, "envandle/elements"
   autoload :GemspecCache, "envandle/gemspec_cache"
