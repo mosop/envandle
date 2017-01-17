@@ -37,7 +37,7 @@ EOS
 end
 
 abort "Invalid option: --envandle-source" unless gem_source
-abort "Invalid opiton: --bundle-bin" unless bundle_bin
+abort "Invalid option: --bundle-bin" unless bundle_bin
 
 gemfile = Tempfile.new("install_envandle-Gemfile-", Dir.pwd)
 gemfile << <<-EOS
