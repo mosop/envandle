@@ -2,6 +2,7 @@ autoload :FileUtils, "fileutils" unless Object::const_defined?(:FileUtils) && !O
 autoload :Mutex, "thread" unless Object::const_defined?(:Mutex) && !Object::autoload?(:Mutex)
 autoload :Open3, "open3" unless Object::const_defined?(:Open3) && !Object::autoload?(:Open3)
 autoload :YAML, "yaml" unless Object::const_defined?(:YAML) && !Object::autoload?(:YAML)
+autoload :JSON, "json" unless Object::const_defined?(:JSON) && !Object::autoload?(:JSON)
 require "envandle/version"
 require "envandle/exceptions"
 require "envandle/helper"
@@ -19,6 +20,7 @@ module Envandle
   autoload :Gemspec, "envandle/gemspec"
   autoload :GitBranchReference, "envandle/git_branch_reference"
   autoload :GitUtil, "envandle/git_util"
+  autoload :History, "envandle/history"
   autoload :Location, "envandle/location"
   autoload :PathReference, "envandle/path_reference"
   autoload :ReferenceCache, "envandle/reference_cache"

@@ -22,11 +22,22 @@ module Envandle
         @groups ||= @args.args.dup
       end
 
-      def executable_argsets
-        @executable_argsets ||= [].tap do |a|
+      def bundler_argsets
+        @bundler_argsets ||= [].tap do |a|
           a << Argset.new(:group, *@args.args_and_options) do
+            receiver = gemfile.bundler_receiver
             children.each do |child|
-              child.exec gemfile.binding_receiver
+              child.send_to_bundler receiver
+            end
+          end
+        end
+      end
+
+      def history_argsets
+        @history_argsets ||= [].tap do |a|
+          a << Argset.new(:group, *@args.args_and_options) do |history|
+            children.each do |child|
+              child.send_to_history history
             end
           end
         end

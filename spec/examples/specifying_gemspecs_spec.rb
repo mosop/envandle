@@ -30,6 +30,7 @@ module EnvandleExampleSpecSpecifyingGemspecs
           [:gem, "b", {path: b_dir}],
           [:gem, "c", "~> 1.0"]
         ]
+        expect(gemfile.history.argsets).to eq test_binding.argsets
       end
     end
 
@@ -43,6 +44,7 @@ module EnvandleExampleSpecSpecifyingGemspecs
           [:gem, "b", "~> 1.0"],
           [:gem, "c", "~> 1.0"]
         ]
+        expect(gemfile.history.argsets).to eq test_binding.argsets
       end
     end
   end

@@ -21,6 +21,7 @@ module EnvandleExampleSpecResolvingMultilevelDependencies
           [:gem, "b", {path: b_dir}],
           [:gem, "a", {path: a_dir}]
         ]
+        expect(gemfile.history.argsets).to eq test_binding.argsets
       end
     end
   end

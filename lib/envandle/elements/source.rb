@@ -5,8 +5,8 @@ module Envandle
         :source
       end
 
-      def executable_argsets
-        @executable_argsets ||= [].tap do |a|
+      def bundler_argsets
+        @bundler_argsets ||= [].tap do |a|
           a << Argset.new(:source, *@args.args_and_options)
         end
       end

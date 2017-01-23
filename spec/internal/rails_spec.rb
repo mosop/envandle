@@ -90,6 +90,7 @@ module EnvandleInternalSpecRails
           ]],
           [:gem, "tzinfo-data", {platforms: [:mingw, :mswin, :x64_mingw, :jruby]}]
         ]
+        expect(gemfile.history.argsets).to eq test_binding.argsets
       end
     end
   end

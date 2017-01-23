@@ -52,10 +52,20 @@ module Envandle
       children_by_type(child.type) << child
     end
 
-    def exec(context)
-      executable_argsets.each do |i|
-        i.send_to context
+    def send_to_bundler(receiver)
+      bundler_argsets.each do |i|
+        i.send_to receiver
       end
+    end
+
+    def send_to_history(receiver)
+      history_argsets.each do |i|
+        i.send_to receiver
+      end
+    end
+
+    def history_argsets
+      bundler_argsets
     end
   end
 end

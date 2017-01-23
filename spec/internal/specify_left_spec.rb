@@ -20,6 +20,10 @@ module EnvandleInternalSpecSpecifyLeft
         [:gem, "c", git: "c-url", branch: "c-branch"],
         [:gem, "b", path: "b-path"]
       ]
+      expect(gemfile.history.argsets).to eq [
+        [:gem, "a", path: dir],
+        [:gem, "envandle-test1", git: "https://github.com/mosop/envandle-test1.git", branch: "edge"]
+      ]
     end
   end
 end

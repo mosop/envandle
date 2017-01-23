@@ -13,25 +13,54 @@ module Envandle
         dsl_method :git_source
       end
 
+      DUMP = ENV["ENVANDLE_DUMP"].to_s
+
       def initialize(file, binding, config_dir = nil)
         super Location.new(file, 1), nil
-        @binding = binding
+        @bundler_binding = dumps? ? History.new : binding
         @config_dir = config_dir
       end
 
-      def binding_receiver
-        @binding.receiver
+      def bundler_receiver
+        @bundler_binding.receiver
+      end
+
+      def history
+        @history ||= History.new
       end
 
       def draw(&block)
         super
         exec
+        dump if dumps?
+      end
+
+      def dumps?
+        !DUMP.empty?
+      end
+
+      def dump
+        dump_file do |f|
+          f << JSON.pretty_generate(history.argsets)
+        end
+      end
+
+      def dump_file(&block)
+        case DUMP
+        when "1"
+          yield $stdout
+        when "2"
+          yield $stderr
+        else
+          File.open DUMP, "w", &block
+        end
       end
 
       def exec
-        receiver = @binding.receiver
+        receiver = bundler_receiver
         children.each do |child|
-          child.exec receiver
+          child.send_to_bundler receiver
+          child.send_to_history history
         end
         references.left.each do |k, v|
           v.to_executable_argset(Argset.new(nil)).send_to receiver

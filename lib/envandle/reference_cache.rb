@@ -67,14 +67,14 @@ module Envandle
       klass.new(@context, parse_name(env, name), url, ref)
     end
 
-    def extract_executable_argsets(base, group, name, argsets, found = {})
+    def extract_bundler_argsets(base, group, name, argsets, found = {})
       key = Envandle.reference_key(group, name)
       return true if found.key?(key)
       found[key] = true
       if ref = use(name)
         ref.spec.runtime_dependencies.each do |i|
           if ref2 = use(i.name)
-            extract_executable_argsets base, nil, i.name, argsets, found
+            extract_bundler_argsets base, nil, i.name, argsets, found
           end
         end
         args = base.dup

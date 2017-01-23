@@ -22,6 +22,7 @@ module EnvandleExampleSpecSettingPaths
           [:source, "https://rubygems.org"],
           [:gem, "mygem", {path: dir}]
         ]
+        expect(gemfile.history.argsets).to eq test_binding.argsets
       end
     end
 
@@ -32,6 +33,7 @@ module EnvandleExampleSpecSettingPaths
           [:source, "https://rubygems.org"],
           [:gem, "mygem", "~> 1.0"]
         ]
+        expect(gemfile.history.argsets).to eq test_binding.argsets
       end
     end
   end

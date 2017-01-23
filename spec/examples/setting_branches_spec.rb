@@ -21,6 +21,7 @@ module EnvandleExampleSpecSettingBranches
           [:source, "https://rubygems.org"],
           [:gem, "envandle-test1", {git: "https://github.com/mosop/envandle-test1.git", branch: "edge"}]
         ]
+        expect(gemfile.history.argsets).to eq test_binding.argsets
       end
     end
 
@@ -31,6 +32,7 @@ module EnvandleExampleSpecSettingBranches
           [:source, "https://rubygems.org"],
           [:gem, "envandle-test1", "~> 1.0"]
         ]
+        expect(gemfile.history.argsets).to eq test_binding.argsets
       end
     end
   end

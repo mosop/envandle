@@ -15,8 +15,8 @@ module Envandle
         :gemspec
       end
 
-      def executable_argsets
-        @executable_argsets ||= begin
+      def bundler_argsets
+        @bundler_argsets ||= begin
           [].tap do |a|
             path = @path || ::Envandle::Gemspec.find_file(gemfile.dir, name: @name)
             spec = ::Envandle::Gemspec.new(path)
@@ -27,7 +27,7 @@ module Envandle
               argset = Argset.new(nil, i.name, *i.requirements_list)
               argset.options[:group] = group if group
               gem = Gem.new(@loc, @context, *argset.args_and_options)
-              gem.extract_executable_argsets a, found
+              gem.extract_bundler_argsets a, found
             end
           end
         end
