@@ -9,9 +9,7 @@ module Envandle
     autoload :GitSource, "envandle/elements/git_source"
     autoload :GroupBlock, "envandle/elements/group_block"
     autoload :Group, "envandle/elements/group"
-    autoload :IllegalElement, "envandle/elements/illegal_element"
     autoload :SourceBlock, "envandle/elements/source_block"
     autoload :Source, "envandle/elements/source"
-    autoload :UnsupportedElement, "envandle/elements/unsupported_element"
   end
 end

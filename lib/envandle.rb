@@ -21,7 +21,9 @@ module Envandle
   autoload :GitBranchReference, "envandle/git_branch_reference"
   autoload :GitUtil, "envandle/git_util"
   autoload :History, "envandle/history"
+  autoload :IllegalElement, "envandle/illegal_element"
   autoload :Location, "envandle/location"
   autoload :PathReference, "envandle/path_reference"
   autoload :ReferenceCache, "envandle/reference_cache"
+  autoload :UnsupportedElement, "envandle/unsupported_element"
 end
