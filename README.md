@@ -118,9 +118,17 @@ is evaluated as:
 gem "mygem", "~> 1.0"
 ```
 
+### Setting Git Commit IDs
+
+You can specify the gem method's `git` and `ref` options by setting the ENVANDLE_GEM_GIT_REF variable.
+
+```ruby
+ENV["ENVANDLE_GEM_GIT_REF"] = "mygem:https://github.com/mosop/mygem.git#aed3d9b9965b6938cca7490e98423cf9b5908b09"
+```
+
 ### Specifying Gemspecs
 
-As well as the regular Gemfile, you can also specify a gemspec not a single gem.
+You can also specify a gemspec not a single gem.
 
 For example, if your gem's name is "mygem", the gemspec refers the a, b and c gems and the c's version requirement is "~> 1.0",
 

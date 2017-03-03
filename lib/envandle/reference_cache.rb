@@ -19,8 +19,12 @@ module Envandle
       @git_branches ||= parse(:git, GitBranchReference, "ENVANDLE_GEM_GIT_BRANCH")
     end
 
+    def git_refs
+      @git_refs ||= parse(:git, GitRefReference, "ENVANDLE_GEM_GIT_REF")
+    end
+
     def all
-      @all ||= git_branches.merge(paths)
+      @all ||= git_branches.merge(git_refs.merge(paths))
     end
 
     def left

@@ -19,6 +19,7 @@ module Envandle
   autoload :GemspecCache, "envandle/gemspec_cache"
   autoload :Gemspec, "envandle/gemspec"
   autoload :GitBranchReference, "envandle/git_branch_reference"
+  autoload :GitRefReference, "envandle/git_ref_reference"
   autoload :GitUtil, "envandle/git_util"
   autoload :History, "envandle/history"
   autoload :IllegalElement, "envandle/illegal_element"

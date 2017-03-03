@@ -9,6 +9,7 @@ module Envandle
       before(:context) do
         @__last_gem_path_env = ENV["ENVANDLE_GEM_PATH"]
         @__last_gem_git_branch_env = ENV["ENVANDLE_GEM_GIT_BRANCH"]
+        @__last_gem_git_ref_env = ENV["ENVANDLE_GEM_GIT_REF"]
         ENV["ENVANDLE_GEM_PATH"] = ""
         ENV["ENVANDLE_GEM_GIT_BRANCH"] = ""
         tmpdir = File.expand_path("../tmp", __dir__)
@@ -19,6 +20,7 @@ module Envandle
       after(:context) do
         ENV["ENVANDLE_GEM_PATH"] = @__last_gem_path_env
         ENV["ENVANDLE_GEM_GIT_BRANCH"] = @__last_gem_git_branch_env
+        ENV["ENVANDLE_GEM_GIT_REF"] = @__last_gem_git_ref_env
         FileUtils.remove_entry_secure @__working_dir, true if @__working_dir
       end
 

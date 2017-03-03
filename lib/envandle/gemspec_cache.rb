@@ -7,6 +7,8 @@ module Envandle
       FileUtils.mkdir_p @path
     end
 
+    attr_reader :path
+
     def with_file
       path = File.join(@path, "list")
       @@mutex.synchronize do

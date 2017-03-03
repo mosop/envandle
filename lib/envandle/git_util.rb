@@ -49,5 +49,13 @@ module Envandle
         end
       end
     end
+
+    def self.pull_sha(dir, ref, branch)
+      Dir.chdir(dir) do
+        Envandle.sh "#{BIN} checkout -b #{branch}"
+        Envandle.sh "#{BIN} fetch origin"
+        Envandle.sh "#{BIN} reset --hard #{ref}"
+      end
+    end
   end
 end
